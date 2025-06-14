@@ -66,7 +66,7 @@ status=$(echo "$status" | xargs)
 
 # Check if assignment matches and status is 'not submitted'
 if [[ "$assignment" == "$ASSIGNMENT" && "$status" == "not submitted" ]]; then
-echo "Reminder: $student has not submitted the $ASSIGNMENT assignment!"
+echo "Reminder: $student has not submitted the $ASSIGNMENT!"
 fi
 done < <(tail -n +2 "$submissions_file") # Skip the header
 }
@@ -116,6 +116,9 @@ sleep 1
 #change all shell files permissions to executable
 echo "Adding Executable permissions to file..."
 find submission_reminder_$user_name -type f -name "*.sh" -exec chmod +x {} \;
-sleep 2
+sleep 1
 echo "File permissions set to executable"
 fi
+
+
+#End of File
