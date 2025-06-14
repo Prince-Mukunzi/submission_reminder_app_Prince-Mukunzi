@@ -10,7 +10,7 @@ source ./submission_reminder_$user_name/config/config.env
 path=./submission_reminder_$user_name
 
 read -p "Enter Assignment to check: " user_assignment
-sed -i '' "s/$ASSIGNMENT/$user_assignment/" ./submission_reminder_$user_name/config/config.env
+perl -pi -e "s/$ASSIGNMENT/$user_assignment/" ./submission_reminder_$user_name/config/config.env
 
 #run the startup file
 ./submission_reminder_$user_name/startup.sh
