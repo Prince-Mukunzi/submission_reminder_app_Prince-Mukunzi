@@ -4,7 +4,7 @@ Chiagoziem, Git, submitted
 Divine, Shell Navigation, not submitted
 Anissa, Shell Basics, submitted
 Prince, Shell Navigation, not submitted
-Mukunzi, shell Basics, submitted
+Mukunzi, Shell Basics, not submitted
 Optimus, Git, submitted
 Prime, Shell Basics, not submitted
 John Doe, Git, not submitted

@@ -3,20 +3,25 @@
 #prompt user for their name
 read -p "Please enter your name: " user_name
 
-#create directory structure for the user
+#Variable to hold the directory path
+path=submission_reminder_$user_name
 
+#Create directory if and only if the user provided a name
+if [ ! -z "$user_name" ]; then
+
+#create directory structure for the user
 if [ -d "submission_reminder_$user_name" ]; then
 	echo "A directory under $user_name already exists"
 	exit 1
 else
 	echo "Creating File directory structure..."
-	mkdir -p submission_reminder_$user_name/{app,modules,assets,config}
+	mkdir -p $path/{app,modules,assets,config}
 	sleep 1
 	echo "Creating File directory structure complete"
 
 #function for inserting config.env file
 config_file(){
-	cat > submission_reminder_$user_name/config/config.env <<EOF
+	cat > $path/config/config.env <<EOF
 # This is the config file
 ASSIGNMENT="Shell Navigation"
 DAYS_REMAINING=2
@@ -27,7 +32,7 @@ EOF
 
 #function for inserting reminder.sh file
 reminder_file(){
-        cat > submission_reminder_$user_name/app/reminder.sh <<'EOF'
+        cat > $path/app/reminder.sh <<'EOF'
 #!/bin/bash
 
 # Source environment variables and helper functions
@@ -49,7 +54,7 @@ EOF
 
 #function for inserting functions.sh file
 functions_file(){
-        cat > submission_reminder_$user_name/modules/functions.sh <<'EOF'
+        cat > $path/modules/functions.sh <<'EOF'
 #!/bin/bash
 
 # Function to read submissions file and output students who have not submitted
@@ -76,14 +81,14 @@ EOF
 
 #function for inserting submission.txt file
 submission_file(){
-	cat > submission_reminder_$user_name/assets/submissions.txt <<EOF
+	cat > $path/assets/submissions.txt <<EOF
 student, assignment, submission status
 Chinemerem, Shell Navigation, not submitted
 Chiagoziem, Git, submitted
 Divine, Shell Navigation, not submitted
 Anissa, Shell Basics, submitted
 Prince, Shell Navigation, not submitted
-Mukunzi, shell Basics, submitted
+Mukunzi, Shell Basics, not submitted
 Optimus, Git, submitted
 Prime, Shell Basics, not submitted
 John Doe, Git, not submitted
@@ -92,7 +97,7 @@ EOF
 
 #function for starting the app
 startup_file(){
-	cat > submission_reminder_$user_name/startup.sh <<'EOF'
+	cat > $path/startup.sh <<'EOF'
 #!/bin/bash
 	
 cd "$(dirname "$0")"
@@ -108,17 +113,22 @@ functions_file
 submission_file
 startup_file
 
+#show the file structure to the user
 sleep 1
 echo "FILE DIRECTORY STRUCTURE:"
-ls submission_reminder_$user_name/*
+ls $path/*
 sleep 1
 
-#change all shell files permissions to executable
+#change all shell .sh files permissions to executable
 echo "Adding Executable permissions to file..."
-find submission_reminder_$user_name -type f -name "*.sh" -exec chmod +x {} \;
+find $path -type f -name "*.sh" -exec chmod +x {} \;
 sleep 1
 echo "File permissions set to executable"
 fi
 
-
-#End of File
+#Error Handling; Exit pogram if user doesn't provide a name
+else
+echo "You did not provide name"
+echo "Please start the program again and enter name"
+exit 1
+fi

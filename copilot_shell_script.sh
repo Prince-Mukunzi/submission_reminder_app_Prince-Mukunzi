@@ -1,16 +1,16 @@
 #!/bin/bash
 
+#Prompt the user for name to check
 read -p "Enter name: " user_name
 
 #Getting variable sources
-#source create_environment.sh
 source ./submission_reminder_$user_name/config/config.env
 
 #variable to store directory path
 path=./submission_reminder_$user_name
 
 read -p "Enter Assignment to check: " user_assignment
-perl -pi -e "s/$ASSIGNMENT/$user_assignment/" ./submission_reminder_$user_name/config/config.env
+perl -pi -e "s/$ASSIGNMENT/$user_assignment/" $path/config/config.env
 
 #run the startup file
-./submission_reminder_$user_name/startup.sh
+$path/startup.sh
