@@ -3,8 +3,6 @@
 #Prompt the user for name and assignment to check
 read -p "Enter name: " user_name
 
-
-
 #Declared variables
 path="./submission_reminder_${user_name}"
 found=false
@@ -12,9 +10,10 @@ possible_assignments=("Shell Navigation" "Git" "Shell Basics")
 
 #checks if entered user name is not null and is an actual directory
 if [[ -n $user_name && -d $path ]]; then
-    #Getting Environment config variables
+    #Getting variable sources
     source ./submission_reminder_${user_name}/config/config.env
     read -p "Enter Assignment to check: " user_assignment
+
     #check if entered assignment is in assignments
     for assignment in "${possible_assignments[@]}"; do
         if [ "${assignment}" == "${user_assignment}" ]; then
@@ -29,10 +28,10 @@ if [[ -n $user_name && -d $path ]]; then
     done
     #Error in case assignment is not found
     if [ "$found" == false ]; then
-        echo "Error: Assignment not found; Please provide Valid Assignment">&2
+        echo "Error: Assignment not found or Null; Please provide Valid Assignment">&2
         exit 1
     fi
 else
-echo "Error: Invalid Username">&2
-exit 1
+    echo "Error: Invalid Username">&2
+    exit 1
 fi
