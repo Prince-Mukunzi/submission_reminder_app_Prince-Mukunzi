@@ -124,11 +124,12 @@ echo "Adding Executable permissions to file..."
 find $path -type f -name "*.sh" -exec chmod +x {} \;
 sleep 1
 echo "File permissions set to executable"
+
 fi
 
 #Error Handling; Exit pogram if user doesn't provide a name
 else
-echo "You did not provide name"
-echo "Please start the program again and enter name"
-exit 1
+echo "Null Value; Exiting...">&2
+echo "Please start the program again and Provide name">&2
+exit 0
 fi
